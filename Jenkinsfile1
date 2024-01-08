@@ -6,8 +6,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh './mvnw clean install site surefire-report:report'
-        sh 'tree'
+          withSonarQubeEnv(installationName: 'sonar01'){
+        sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+      // sh 'tree'
+}
       }
     }
   }
