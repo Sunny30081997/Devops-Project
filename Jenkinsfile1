@@ -1,24 +1,29 @@
+
 pipeline {
-    agent any
-    
-    environment {
-        PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
-    }
+  agent any
+environment {
+    PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
+  }
   
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '5'))
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  stages {
+    stage('Build') {
+      steps {
+          withSonarQubeEnv(installationName: 'sonar01'){
+          sh 'mvn -v'     
+         sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+        
+}
+      }
     }
-  
-    stages {
-        stage('Build and SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQube Scanner'
-                    
-                    // Run Maven build and SonarQube analysis
-                    sh "mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.java.binaries=target/classes"
-                }
+stage('Quality Gate') {
+      steps {
+            timeout(time: 2, unit: 'MINUTES'){
+            waitForQualityGate abortPipeline: true
             }
-        }
+      }
     }
+  }
 }
