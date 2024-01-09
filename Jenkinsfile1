@@ -12,7 +12,7 @@ environment {
     stage('Build') {
       steps {
           withSonarQubeEnv(installationName: 'sonar02'){
-          sh 'mvn -v'     
+             
          sh 'mvn clean'
           sh ' mvn clean verify sonar:sonar'
 
