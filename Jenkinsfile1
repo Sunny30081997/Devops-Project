@@ -13,7 +13,9 @@ environment {
       steps {
           withSonarQubeEnv(installationName: 'sonar02'){
           sh 'mvn -v'     
-         sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+         sh 'mvn clean'
+          sh ' mvn clean verify sonar:sonar'
+
         
 }
       }
