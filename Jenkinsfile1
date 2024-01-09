@@ -15,11 +15,9 @@ environment {
              
          sh 'mvn clean'
           sh ' mvn clean verify sonar:sonar'
-
-        
-}
-      }
-    }
+          }
+        }
+     }
 stage('Quality Gate') {
       steps {
             timeout(time: 3, unit: 'MINUTES'){
@@ -27,5 +25,50 @@ stage('Quality Gate') {
             }
       }
     }
+    stage('Build Project') {
+      steps {
+        sh 'mvn clean install'
+      }
+    } 
+    // Transfer
+    stage('Deploy to Remote Server') {
+      steps {
+        script {
+          def remoteServer = '3.94.121.159'
+          def remoteDirectory = '/temp/'
+          def warFileName = 'EcommerceApp.war'
+          sshPublisher(
+            publishers: [
+              sshPublisherDesc(
+                configName: 'targetr', // The SSH configuration name from Jenkins
+                transfers: [
+                  sshTransfer(
+                    sourceFiles: "target/${warFileName}",
+                    removePrefix: 'target',
+                    remoteDirectory: "${remoteDirectory}"
+                  )
+                ]
+              )
+            ]
+          )
+        }
+      }
+    }
+
+    
+       stage('Deploy WAR File') {
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: 'c1aa46bd-7622-414f-8c26-c4579e245a34', keyFileVariable: 'SSH_KEY')]) {
+          script {
+
+           
+          sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@3.94.121.159 "bash /home/ec2-user/commamd.txt"'
+           // sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@54.158.93.160 "mvn -v"'
+         
+          }
+        }
+      }
+    }
+
   }
 }
