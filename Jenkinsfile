@@ -14,7 +14,7 @@ pipeline {
     stage('Deploy to Remote Server') {
       steps {
         script {
-          def remoteServer = '54.158.93.160'
+          def remoteServer = '3.94.121.159'
           def remoteDirectory = '/temp/'
           def warFileName = 'EcommerceApp.war'
           sshPublisher(
@@ -42,7 +42,7 @@ pipeline {
           script {
 
            
-          sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@54.158.93.160 "bash /home/ec2-user/commamd.txt"'
+          sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@3.94.121.159 "bash /home/ec2-user/commamd.txt"'
            // sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@54.158.93.160 "mvn -v"'
          
           }
