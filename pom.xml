@@ -86,6 +86,13 @@
   <!-- Build configuration -->
   <build>
     <!-- Name of the final artifact without its extension -->
+        <plugins>
+        <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.9.0.2155</version>
+        </plugin>
+    </plugins>
     <finalName>EcommerceApp</finalName>
   </build>
 
