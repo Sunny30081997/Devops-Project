@@ -11,7 +11,7 @@ environment {
   stages {
     stage('Build') {
       steps {
-          withSonarQubeEnv(installationName: 'sonar01'){
+          withSonarQubeEnv(installationName: 'sonar02'){
           sh 'mvn -v'     
          sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
         
