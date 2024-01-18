@@ -108,7 +108,7 @@ img {vertical-align: middle;}
 	<%@ include file = "navbar.jsp" %>
 	
 	
-	<div style='background-color:#ebe9eb'>
+	<div style='background-color:#802680'>
 	<br>
 	<h1>Home</h1>
 	<br>
