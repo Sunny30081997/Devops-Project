@@ -193,7 +193,7 @@ function showSlides() {
 				<tr><th>
 					<a href = 'selecteditem.jsp?Pn=<%=v.getPimage()%>'> <img src =' images/<%= v.getPimage() %>' height = 150px weight = 150px></a>
 				</th></tr><br>
-				<tr style='background-color: #ebe9eb'><th style='text-align: center'>
+				<tr style='background-color: #1a191a'><th style='text-align: center'>
 					<a href = 'selecteditem.jsp?Pn=<%=v.getPimage()%>'> <%= v.getBname()%> <%= v.getPname()%></a>
 				</th></tr>
 			</table>	
