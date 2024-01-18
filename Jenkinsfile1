@@ -9,7 +9,7 @@ environment {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
-    stage('Build') {
+    stage('Code Analysis') {
       steps {
           withSonarQubeEnv(installationName: 'sonar01'){
              
@@ -18,7 +18,7 @@ environment {
           }
         }
      }
-stage('Quality Gate') {
+stage('Comparing Quality Gates') {
       steps {
             timeout(time: 3, unit: 'MINUTES'){
             waitForQualityGate abortPipeline: true
@@ -31,10 +31,10 @@ stage('Quality Gate') {
       }
     } 
     // Transfer
-    stage('Deploy to Remote Server') {
+    stage('move artifacts to Remote Server') {
       steps {
         script {
-          def remoteServer = '3.94.121.159'
+          def remoteServer = '54.163.146.249'
           def remoteDirectory = '/temp/'
           def warFileName = 'EcommerceApp.war'
           sshPublisher(
@@ -56,7 +56,7 @@ stage('Quality Gate') {
     }
 
     
-       stage('Deploy WAR File') {
+       stage('Deploy') {
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'c1aa46bd-7622-414f-8c26-c4579e245a34', keyFileVariable: 'SSH_KEY')]) {
           script {
