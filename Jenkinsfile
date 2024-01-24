@@ -1,9 +1,6 @@
 pipeline {
   agent any
-  environment {
-    SSH_KEY = credentials('c1aa46bd-7622-414f-8c26-c4579e245a34')
-    PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
-  }
+  
   stages {
     stage('Build Project') {
       steps {
@@ -14,7 +11,7 @@ pipeline {
     stage('Deploy to Remote Server') {
       steps {
         script {
-          def remoteServer = '3.94.121.159'
+          def remoteServer = 'localhost'
           def remoteDirectory = '/temp/'
           def warFileName = 'EcommerceApp.war'
           sshPublisher(
@@ -38,14 +35,13 @@ pipeline {
     
        stage('Deploy WAR File') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'c1aa46bd-7622-414f-8c26-c4579e245a34', keyFileVariable: 'SSH_KEY')]) {
-          script {
+                  script {
 
            
-          sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@3.94.121.159 "bash /home/ec2-user/commamd.txt"'
+          sh 'ssh ec2-user@localhost "bash /home/ec2-user/commamd.txt"'
            // sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ec2-user@54.158.93.160 "mvn -v"'
          
-          }
+          
         }
       }
     }
