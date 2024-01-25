@@ -33,7 +33,7 @@ pipeline {
     } */
 
     
-       stage('Deploy WAR File') {
+     /*  stage('Deploy WAR File') {
       steps {
                   script {
 
@@ -44,7 +44,7 @@ pipeline {
           
         }
       }
-    }
+    }*/
   }
   post {
     success {
