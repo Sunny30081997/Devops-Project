@@ -8,7 +8,7 @@ pipeline {
       }
     } 
     // Transfer
-    stage('Deploy to Remote Server') {
+   /* stage('Deploy to Remote Server') {
       steps {
         script {
           def remoteServer = 'localhost'
@@ -30,7 +30,7 @@ pipeline {
           )
         }
       }
-    }
+    } */
 
     
        stage('Deploy WAR File') {
